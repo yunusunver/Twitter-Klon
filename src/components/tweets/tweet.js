@@ -1,6 +1,31 @@
 import React from 'react';
 import './tweets.css';
 
+const decideDate=(date)=>{
+    let result='';
+    const diffMS=new Date().getTime() - new Date(date).getTime();
+    const min= parseInt(diffMS/1000/60);
+    const hour=parseInt(min/60);
+    const day=parseInt(hour/24);
+
+    if(min<1){
+        result ='Yaklaşık bir dakika önce';
+    }else{
+        if(hour<1){
+            result=min+' dakika önce';
+        }else{
+            if (day<1) {
+                result = hour + ' saat önce';
+            }else{
+                result = day + ' gün önce';
+            }
+        }
+    }
+
+    return result;
+}
+
+
 const Tweet = ({ tweet }) =>{
     return(
             <div className="tweet-wrapper event">
@@ -8,7 +33,7 @@ const Tweet = ({ tweet }) =>{
                 <div className="summary">
                     {tweet.email}
                     <div className="date">
-                    {tweet.date}
+                    {decideDate(tweet.date)}
                     </div>
                 </div>
                 <div className="extra text">
