@@ -37,6 +37,7 @@ class App extends Component{
                      <Route path='/' component={Tweets} exact />
                      <Route path='/myTweets' component={MyTweets} />
                      <Route path='/newTweet' component={NewTweet}/>
+                     <Route path='/editTweet' component={NewTweet}/>
                      <Route path='/login' component={Login}/>
                      <Route path='/tweets' component={Tweets}/>
                 </Switch>

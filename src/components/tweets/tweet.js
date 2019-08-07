@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import './tweets.css';
 
 const decideDate=(date)=>{
@@ -26,9 +27,14 @@ const decideDate=(date)=>{
 }
 
 
-const Tweet = ({ tweet }) =>{
+const Tweet = ({ tweet, history}) =>{
     return(
-            <div className="tweet-wrapper event">
+            <div className="tweet-wrapper event" 
+            onClick={()=>{ 
+                history.push({
+                    pathname: '/editTweet',
+                    state: {tweet}
+                }) }}>
                 <div className="content">
                 <div className="summary">
                     {tweet.email}
@@ -44,4 +50,4 @@ const Tweet = ({ tweet }) =>{
     )
 }
 
-export default Tweet;
+export default withRouter(Tweet);
