@@ -9,6 +9,7 @@ const UPDATE_TWEET = 'UPDATE_TWEET';
 const DELETE_TWEET='DELETE_TWEET';
 const REF_DATABASE = '/tweets';
 export const FETCH_ALL_TWEETS='FETCH_ALL_TWEETS';
+export const FETCH_MY_TWEETS='FETCH_MY_TWEETS';
 
 export const sendTweet =({tweet}) =>{
     
@@ -55,6 +56,20 @@ export const deleteTweet=(uid)=>{
             .remove().then(()=>{
                 history.push('/');
                 dispatch({type: DELETE_TWEET});
+            })
+    }
+}
+
+
+export const fetchMyTweets = (email) =>{
+    return dispatch => {
+        firebase.database().ref(REF_DATABASE)
+            .orderByChild('email').equalTo(email)
+            .on('value',snapshot=>{
+                const result= _.map(snapshot.val(), (val, uid)=>{
+                    return {...val, uid}
+                });
+                dispatch({type:FETCH_MY_TWEETS,payload:result})
             })
     }
 }
